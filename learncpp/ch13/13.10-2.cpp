@@ -9,6 +9,7 @@
  
 #include <iostream>
 #include <limits>
+#include <cmath>
 
 struct Fraction	{
 	int num {};
@@ -28,7 +29,9 @@ std::ostream& operator<<(std::ostream& out, const Fraction& f)	{
 }
 
 inline constexpr int findGCF(const int a, const int b)	{
-	int gcf { (a < b ? a : b) }; // start with lower of two numbers
+	using std::abs;
+	int gcf {abs( (abs(a) < abs(b) ? a : b) )}; // start with magnitude of lower of two numbers
+	if (gcf == 0) return 1;
 	for (int div = 1; div <= gcf; ++div)	{
 		gcf /= div;	
 		if (a % gcf == 0 && b % gcf == 0) break;
